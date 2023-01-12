@@ -14,10 +14,15 @@ import javax.swing.JOptionPane;
 public class Main {
 
     public ArrayList<String> words = new ArrayList<String>();
+    public String answer;
 
     public static void main(String[] args) {
         // initializes the class
         Main main = new Main();
+
+        // 0 = false
+        // 1 = true
+        int continueGame = 1;
 
         // scans every guess into words
         main.scanFile("words");
@@ -26,15 +31,26 @@ public class Main {
                 "Welcome to Wordle! \nThis game will test your vocabulary! \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word.",
                 "Tutorial", -1, null);
 
-        main.wordleGame();
+        // it will enter the if statement if you win
+        // otherwise, it will enter the else statement
+
+        while (continueGame == 1) {
+            if (main.wordleGame()) {
+                JOptionPane.showConfirmDialog(null,
+                        "Congratulations! \nYou guessed the word!\n The word is " + main.answer, "End", -1, null);
+            } else {
+
+            }
+        }
     }
 
+    // return true if you win, returns false if you lose
     public boolean wordleGame() {
         // answer: the answer for the wordle
         // input: the guess the user enters in
         // result: A string of G, Y, and * to indicate what letters are correct.
         // allGuesses: A collection of guesses
-        String answer, input, result, allGuesses = "";
+        String input, result, allGuesses = "";
 
         answer = words.get(randomInt(0, words.size())).toString();
         System.out.println(answer);
@@ -88,6 +104,7 @@ public class Main {
     }
 
     public String checkGuess(String guess) {
+        // start working here
         return "*****";
     }
 
@@ -104,15 +121,15 @@ public class Main {
 
         // if word not found, continue looping until you get a valid guess
         // the for(;;) makes an infinite loop until 'I' break it
-        for(;;) {  
-            // if the guess is empty or not in list, indicate to the user that it is not a valid guess
-            if(input.isEmpty() || words.contains(input.toLowerCase())){
+        for (;;) {
+            // if the guess is empty or not in list, indicate to the user that it is not a
+            // valid guess
+            if (input.isEmpty() || words.contains(input.toLowerCase())) {
                 JOptionPane.showMessageDialog(null, "Please enter a 5 letter word", "Invalid Guess", -1, null);
                 input = JOptionPane.showInputDialog(null, message, title);
-            }
-            else 
+            } else
                 break;
-            
+
         }
 
         return input;
