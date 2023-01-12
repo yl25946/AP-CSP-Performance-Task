@@ -12,7 +12,7 @@ public class Main {
         Main main = new Main();
 
         // scans every guess into allPossibleGuesses
-        main.scanFile("C:\\Users\\gamin\\OneDrive\\Desktop\\Java Stuff\\AP-CSP-Performance-Task\\words");
+        main.scanFile("words");
     }
 
     public void scanFile(String file) {
