@@ -1,7 +1,7 @@
 /*
  * Wordle Game
  * Li Ying 
- * Version 1.0.0 
+ * Version 1.0.2 
  */
 
 import java.io.BufferedReader;
