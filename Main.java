@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -36,7 +37,7 @@ public class Main {
             // otherwise, it will enter the else statement
             if (main.wordleGame()) {
                 JOptionPane.showMessageDialog(null,
-                        "Congratulations! \nYou guessed the word!\n The word is " + main.answer, "End", -1, null);
+                        "Congratulations! \nYou guessed the word!\nThe word is " + main.answer, "End", -1, null);
             } else {
                 JOptionPane.showMessageDialog(null,
                         "You did not guess the word. \nThe word is " + main.answer, "End", -1, null);
@@ -65,7 +66,7 @@ public class Main {
             return true;
         else {
             result = checkGuess(input);
-            allGuesses = result;
+            allGuesses = input + ": " + result;
         }
         // i: guess number
         for (int i = 2; i <= 6; i++) {
@@ -74,7 +75,8 @@ public class Main {
                 return true;
             else {
                 result = checkGuess(input);
-                allGuesses += "\n" + result;
+                allGuesses += "\n" + input + " :" + result;
+                ;
             }
 
         }
@@ -109,8 +111,40 @@ public class Main {
     }
 
     public String checkGuess(String guess) {
-        // start working here
-        return "*****";
+        // answer in char array
+        char[] answerCA = answer.toCharArray();
+        // guess in char array
+        char[] guessCA = guess.toCharArray();
+        // output char array
+        char[] result = new char[5];
+        // fills array with "*"
+        // I don't have to go later in the program to add it
+        Arrays.fill(result, '*');
+
+        // loops through the arrays and checks if the chars are at the same spot
+        // if at the same spot, set "G" at the same index
+        for (int i = 0; i < result.length; i++) {
+            if (answerCA[i] == guessCA[i]) {
+                result[i] = 'G';
+                answerCA[i] = ' ';
+                guessCA[i] = ' ';
+            }
+        }
+
+        // checks for "Y" by comparing all the possible char indexes for both arrays
+        // against each other
+        for (int i = 0; i < result.length; i++) {
+            if (guessCA[i] == ' ')
+                continue;
+            for (int j = 0; j < result.length; j++) {
+                if (answerCA[j] == ' ')
+                    continue;
+                else if (guessCA[i] == answerCA[j])
+                    result[i] = 'Y';
+            }
+        }
+
+        return String.valueOf(result);
     }
 
     // returns a random int including the lowerBound and upperbound
@@ -131,14 +165,16 @@ public class Main {
             // if the guess is empty or not in list, indicate to the user that it is not a
             // valid guess
             if (input == null || input.isEmpty() || !words.contains(input.toLowerCase())) {
-                JOptionPane.showMessageDialog(null, "Please enter a 5 letter word", "Invalid Guess", -1, null);
-                input = JOptionPane.showInputDialog(null, message, title);
+                JOptionPane.showMessageDialog(null, "Please enter a 5 letter word",
+                        "Invalid Guess", -1, null);
+                input = (String) JOptionPane.showInputDialog(null, message, title,
+                        -1, null, null, null);
             } else
                 break;
 
         }
 
-        return input;
+        return input.toLowerCase();
     }
 
 }
