@@ -6,6 +6,7 @@
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -18,21 +19,50 @@ public class Main {
         // initializes the class
         Main main = new Main();
 
-        // scans every guess into allPossibleGuesses
+        // scans every guess into words
         main.scanFile("words");
 
-        String answer = main.words.get(main.randomInt(0, main.words.size())).toString();
+        JOptionPane.showMessageDialog(null,
+                "Welcome to Wordle! \nThis game will test your vocabulary! \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word.",
+                "Tutorial", -1, null);
+
+        main.wordleGame();
+    }
+
+    public boolean wordleGame() {
+        // answer: the answer for the wordle
+        // input: the guess the user enters in
+        // result: A string of G, Y, and * to indicate what letters are correct.
+        // allGuesses: A collection of guesses
+        String answer, input, result, allGuesses = "";
+
+        answer = words.get(randomInt(0, words.size())).toString();
         System.out.println(answer);
 
-        JOptionPane.showMessageDialog(null,
-                "Welcome to Wordle! \nThis game will test your vocabulary! \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word. ",
-                "Tutorial", -1, null);
+        input = getGuess("Guess #1", "Wordle");
+        if (input.equalsIgnoreCase(answer))
+            return true;
+        else {
+            result = checkGuess(input);
+            allGuesses = result;
+        }
+        // i: guess number
+        for (int i = 2; i <= 6; i++) {
+            input = getGuess("Guess #" + i + "\nPrevious Guesses:\n" + allGuesses, "Wordle");
+            if (input.equalsIgnoreCase(answer))
+                return true;
+            else {
+                result = checkGuess(input);
+                allGuesses += "\n" + result;
+            }
+
+        }
+
+        return false;
     }
 
     // input a file name and it will scan the file into an ArrayList
     public void scanFile(String file) {
-        // arrayList to store all the possible wordle guesses
-        ArrayList<String> allPossibleGuesses = new ArrayList<>();
         // added here so we don't have to readLine twice
         String input;
         try {
@@ -46,7 +76,7 @@ public class Main {
                 // adds the word to the list
                 words.add(input);
                 // reads the next line and writes it to input
-                input = bufferedReader.readLine();
+                input = bufferedReader.readLine().toLowerCase();
             }
 
             // closes stream
@@ -57,11 +87,35 @@ public class Main {
         }
     }
 
-    public void checkGuess(String guess) {
+    public String checkGuess(String guess) {
+        return "*****";
     }
 
     // returns a random int including the lowerBound and upperbound
     public int randomInt(int lowerBound, int upperBound) {
         return (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
     }
+
+    public String getGuess(String message, String title) {
+        String input;
+
+        // first gets the input, and then we can go into the loop
+        input = JOptionPane.showInputDialog(null, message, title);
+
+        // if word not found, continue looping until you get a valid guess
+        // the for(;;) makes an infinite loop until 'I' break it
+        for(;;) {  
+            // if the guess is empty or not in list, indicate to the user that it is not a valid guess
+            if(input.isEmpty() || words.contains(input.toLowerCase())){
+                JOptionPane.showMessageDialog(null, "Please enter a 5 letter word", "Invalid Guess", -1, null);
+                input = JOptionPane.showInputDialog(null, message, title);
+            }
+            else 
+                break;
+            
+        }
+
+        return input;
+    }
+
 }
