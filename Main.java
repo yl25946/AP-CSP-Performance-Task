@@ -75,7 +75,7 @@ public class Main {
                 return true;
             else {
                 result = checkGuess(input);
-                allGuesses += "\n" + input + " :" + result;
+                allGuesses += "\n" + input + ": " + result;
                 ;
             }
 
