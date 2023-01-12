@@ -1,11 +1,18 @@
+/*
+ * Wordle Game
+ * Li Ying 
+ * Version 1.0.0 
+ */
+
 import java.io.BufferedReader;
-// import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Main {
 
-    public ArrayList<String> allPossibleGuesses = new ArrayList<String>();
+    public ArrayList<String> words = new ArrayList<String>();
 
     public static void main(String[] args) {
         // initializes the class
@@ -13,8 +20,15 @@ public class Main {
 
         // scans every guess into allPossibleGuesses
         main.scanFile("words");
+
+        String answer = main.words.get(main.randomInt(0, main.words.size())).toString();
+
+        JOptionPane.showMessageDialog(null,
+                "Welcome to Wordle! \nThis game will test your vocabulary! \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word. ",
+                "Tutorial", -1, null);
     }
 
+    // input a file name and it will scan the file into an ArrayList
     public void scanFile(String file) {
         // arrayList to store all the possible wordle guesses
         ArrayList<String> allPossibleGuesses = new ArrayList<>();
@@ -29,7 +43,7 @@ public class Main {
             input = bufferedReader.readLine();
             while (input != null) {
                 // adds the word to the list
-                allPossibleGuesses.add(input);
+                words.add(input);
                 // reads the next line and writes it to input
                 input = bufferedReader.readLine();
             }
@@ -40,5 +54,13 @@ public class Main {
         } catch (Exception e) {
             // No exception, no need to handle
         }
+    }
+
+    public void checkGuess(String guess) {
+    }
+
+    // returns a random int including the lowerBound and upperbound
+    public int randomInt(int lowerBound, int upperBound) {
+        return (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
     }
 }
