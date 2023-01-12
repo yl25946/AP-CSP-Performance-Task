@@ -22,6 +22,7 @@ public class Main {
         main.scanFile("words");
 
         String answer = main.words.get(main.randomInt(0, main.words.size())).toString();
+        System.out.println(answer);
 
         JOptionPane.showMessageDialog(null,
                 "Welcome to Wordle! \nThis game will test your vocabulary! \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word. ",
