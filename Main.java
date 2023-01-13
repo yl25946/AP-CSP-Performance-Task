@@ -1,6 +1,5 @@
 /*
  * Wordle Game
- * Li Ying 
  * Version 1.0.2 
  */
 
