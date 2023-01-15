@@ -1,6 +1,6 @@
 /*
  * Wordle Game
- * Version 1.0.2 
+ * Version 1.0.2f 
  */
 
 import java.io.BufferedReader;
@@ -159,7 +159,8 @@ public class Main {
                 -1, null, null, null);
 
         // if word not found, continue looping until you get a valid guess
-        // the for(;;) makes an infinite loop until 'I' break it
+        // the for(;;) makes an infinite loop until broken
+        // doing this because I'm too lazy to make a boolean to check
         for (;;) {
             // if the guess is empty or not in list, indicate to the user that it is not a
             // valid guess
