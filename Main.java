@@ -1,6 +1,6 @@
 /*
  * Wordle Game
- * Version 1.0.3
+ * Version 1.1.3
  */
 
 import java.io.BufferedReader;
@@ -149,9 +149,35 @@ public class Main {
         return String.valueOf(result);
     }
 
-    // returns a random int including the lowerBound and upperbound
-    public int randomInt(int lowerBound, int upperBound) {
-        return (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
+    /*
+     * Stuff about "String.compareTo()""
+     * An int value: 0 if the string is equal to the other string.
+     * < 0 if first string is alphabetically first
+     * > 0 if the first string is alphabetically later
+     */
+
+    public int binarySearch(ArrayList<String> input, String search, int lowerBound, int upperBound) {
+        int mid = (int) ((lowerBound + upperBound) / 2);
+
+        if (input.get(mid).equals(search)) {
+            return mid;
+        }
+
+        if (lowerBound == upperBound - 1) {
+            if (input.get(mid).equals(search)) {
+                return lowerBound;
+            } else if (input.get(upperBound).equals(search)) {
+                return upperBound;
+            } else
+                return -1;
+        }
+
+        // if the search is alphabetically before the mid of the list
+        if (input.get(mid).compareTo(search) > 0)
+            return binarySearch(input, search, lowerBound, mid);
+        else
+            return binarySearch(input, search, mid, upperBound);
+
     }
 
     public String getGuess(String message, String title) {
@@ -167,7 +193,7 @@ public class Main {
         for (;;) {
             // if the guess is empty or not in list, indicate to the user that it is not a
             // valid guess
-            if (input == null || input.isEmpty() || !words.contains(input.toLowerCase())) {
+            if (input == null || input.isEmpty() || binarySearch(words, input, 0, words.size() - 1) == -1) {
                 JOptionPane.showMessageDialog(null, "Please enter a 5 letter word",
                         "Invalid Guess", -1, null);
                 input = (String) JOptionPane.showInputDialog(null, message, title,
@@ -180,4 +206,8 @@ public class Main {
         return input.toLowerCase();
     }
 
+    // returns a random int including the lowerBound and upperbound
+    public int randomInt(int lowerBound, int upperBound) {
+        return (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
+    }
 }
