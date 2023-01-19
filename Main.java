@@ -1,6 +1,6 @@
 /*
  * Wordle Game
- * Version 1.0.2f 
+ * Version 1.0.3
  */
 
 import java.io.BufferedReader;
@@ -39,7 +39,7 @@ public class Main {
                         "Congratulations! \nYou guessed the word!\nThe word is " + main.answer, "End", -1, null);
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "You did not guess the word. \nThe word is " + main.answer, "End", -1, null);
+                        "You did not guess the word. \nThe word is " + main.answer + ".", "End", -1, null);
             }
 
             // yes = 0
@@ -138,8 +138,11 @@ public class Main {
             for (int j = 0; j < result.length; j++) {
                 if (answerCA[j] == ' ')
                     continue;
-                else if (guessCA[i] == answerCA[j])
+                else if (guessCA[i] == answerCA[j]) {
                     result[i] = 'Y';
+                    answerCA[j] = ' ';
+                    break;
+                }
             }
         }
 
