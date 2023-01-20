@@ -11,19 +11,26 @@ public class performanceTest {
 
         test.scanFile("words");
 
-        test.test();
+        test.test(100000);
     }
 
-    public void test() throws Exception {
-        int randomIndex = randomInt(0, words.size() - 1);
+    public void test(int times) throws Exception {
+        long indexOfTime = 0, binarySearchTime = 0;
 
-        long startTime = System.nanoTime();
-        binarySearch(words, words.get(randomIndex), 0, words.size() - 1);
-        System.out.println(System.nanoTime() - startTime);
+        for (int i = 0; i < times; i++) {
+            int randomIndex = randomInt(0, words.size() - 1);
 
-        startTime = System.nanoTime();
-        words.indexOf(words.get(randomIndex));
-        System.out.println(System.nanoTime() - startTime);
+            long startTime = System.nanoTime();
+            binarySearch(words, words.get(randomIndex), 0, words.size() - 1);
+            binarySearchTime += System.nanoTime() - startTime;
+
+            startTime = System.nanoTime();
+            words.indexOf(words.get(randomIndex));
+            indexOfTime += System.nanoTime() - startTime;
+        }
+
+        System.out.println("Average time for binarySearch is: " + (binarySearchTime / times));
+        System.out.println("Average time for indexOf is: " + (indexOfTime / times));
     }
 
     // returns a random int including the lowerBound and upperbound
