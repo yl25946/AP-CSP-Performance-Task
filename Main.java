@@ -16,7 +16,7 @@ public class Main {
     public ArrayList<String> words = new ArrayList<String>();
     public String answer;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // initializes the class
         Main main = new Main();
 
@@ -86,23 +86,27 @@ public class Main {
     // input a file name and it will scan the file into an ArrayList
     public void scanFile(String file) throws Exception {
         // added here so we don't have to readLine twice
-        String input;
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try {
+            String input;
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        // this shouldn't throw an error because there is more than one value in the
-        // list
-        input = bufferedReader.readLine();
-        while (input != null) {
-            // adds the word to the list
-            words.add(input);
-            // reads the next line and writes it to input
-            input = bufferedReader.readLine().toLowerCase();
+            // this shouldn't throw an error because there is more than one value in the
+            // list
+            input = bufferedReader.readLine();
+            while (input != null) {
+                // adds the word to the list
+                words.add(input);
+                // reads the next line and writes it to input
+                input = bufferedReader.readLine().toLowerCase();
+            }
+
+            // closes stream
+            fileReader.close();
+            bufferedReader.close();
+        } catch (Exception e) {
+            // nothing here
         }
-
-        // closes stream
-        fileReader.close();
-        bufferedReader.close();
     }
 
     public String checkGuess(String guess) {

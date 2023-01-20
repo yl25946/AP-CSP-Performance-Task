@@ -14,16 +14,16 @@ public class performanceTest {
         test.test();
     }
 
-    public void test() throws Exception{
-        int randomIndex = randomInt(0,words.size() -1);
+    public void test() throws Exception {
+        int randomIndex = randomInt(0, words.size() - 1);
 
         long startTime = System.nanoTime();
         binarySearch(words, words.get(randomIndex), 0, words.size() - 1);
-        System.out.println((System.nanoTime() - startTime) / 1000000);
+        System.out.println(System.nanoTime() - startTime);
 
-        startTime = System.nanoTime()
+        startTime = System.nanoTime();
         words.indexOf(words.get(randomIndex));
-        System.out.println((System.nanoTime() - startTime) / 1000000);
+        System.out.println(System.nanoTime() - startTime);
     }
 
     // returns a random int including the lowerBound and upperbound
@@ -38,7 +38,7 @@ public class performanceTest {
      * > 0 if the first string is alphabetically later
      */
 
-    public int binarySearch(ArrayList<String> input, String search, int lowerBound, int upperBound) {
+    public int binarySearch(ArrayList<String> input, String search, int lowerBound, int upperBound) throws Exception {
         int mid = (int) ((lowerBound + upperBound) / 2);
 
         if (input.get(mid).equals(search)) {
@@ -62,25 +62,30 @@ public class performanceTest {
 
     }
 
+    // input a file name and it will scan the file into an ArrayList
     public void scanFile(String file) throws Exception {
         // added here so we don't have to readLine twice
-        String input;
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try {
+            String input;
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        // this shouldn't throw an error because there is more than one value in the
-        // list
-        input = bufferedReader.readLine();
-        while (input != null) {
-            // adds the word to the list
-            words.add(input);
-            // reads the next line and writes it to input
-            input = bufferedReader.readLine().toLowerCase();
+            // this shouldn't throw an error because there is more than one value in the
+            // list
+            input = bufferedReader.readLine();
+            while (input != null) {
+                // adds the word to the list
+                words.add(input);
+                // reads the next line and writes it to input
+                input = bufferedReader.readLine().toLowerCase();
+            }
+
+            // closes stream
+            fileReader.close();
+            bufferedReader.close();
+        } catch (Exception e) {
+            // nothing here
         }
-
-        // closes stream
-        fileReader.close();
-        bufferedReader.close();
     }
 
 }
