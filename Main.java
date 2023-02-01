@@ -8,46 +8,15 @@ import java.io.FileReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import javax.swing.JOptionPane;
 
 public class Main {
 
     public ArrayList<String> words = new ArrayList<String>();
+    public HashSet<String> wordsHashSet = new HashSet<String>();
     public String answer;
-
-    public static void main(String[] args) throws Exception {
-        // initializes the class
-        Main main = new Main();
-
-        // 0 = yes
-        // 1 = no
-        int continueGame = 0;
-
-        // scans every guess into words
-        main.scanFile("words");
-
-        while (continueGame == 0) {
-            JOptionPane.showMessageDialog(null,
-                    "Welcome to Wordle! \nThis game will test your vocabulary! \nEach word is 5 letters long. \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word.",
-                    "Tutorial", -1, null);
-
-            // it will enter the if statement if you win
-            // otherwise, it will enter the else statement
-            if (main.wordleGame()) {
-                JOptionPane.showMessageDialog(null,
-                        "Congratulations! \nYou guessed the word!\nThe word is " + main.answer, "End", -1, null);
-            } else {
-                JOptionPane.showMessageDialog(null,
-                        "You did not guess the word. \nThe word is " + main.answer + ".", "End", -1, null);
-            }
-
-            // yes = 0
-            // no = 1
-            continueGame = JOptionPane.showConfirmDialog(null, "Do you want to play again?", null,
-                    JOptionPane.YES_NO_OPTION, -1, null);
-        }
-    }
 
     // return true if you win, returns false if you lose
     public boolean wordleGame() {
@@ -97,8 +66,10 @@ public class Main {
             while (input != null) {
                 // adds the word to the list
                 words.add(input);
+                // adds the word to the hashset
+                wordsHashSet.add(input);
                 // reads the next line and writes it to input
-                input = bufferedReader.readLine().toLowerCase();
+                input = bufferedReader.readLine();
             }
 
             // closes stream
@@ -193,7 +164,7 @@ public class Main {
         for (;;) {
             // if the guess is empty or not in list, indicate to the user that it is not a
             // valid guess
-            if (input == null || input.isEmpty() || binarySearch(words, input, 0, words.size() - 1) == -1) {
+            if (input.isEmpty() || !wordsHashSet.contains(input.toLowerCase())) {
                 JOptionPane.showMessageDialog(null, "Please enter a 5 letter word",
                         "Invalid Guess", -1, null);
                 input = (String) JOptionPane.showInputDialog(null, message, title,
@@ -209,5 +180,38 @@ public class Main {
     // returns a random int including the lowerBound and upperbound
     public int randomInt(int lowerBound, int upperBound) {
         return (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
+    }
+
+    public static void main(String[] args) throws Exception {
+        // initializes the class
+        Main main = new Main();
+
+        // 0 = yes
+        // 1 = no
+        int continueGame = 0;
+
+        // scans every guess into words
+        main.scanFile("words");
+
+        while (continueGame == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Welcome to Wordle! \nThis game will test your vocabulary! \nEach word is 5 letters long. \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word.",
+                    "Tutorial", -1, null);
+
+            // it will enter the if statement if you win
+            // otherwise, it will enter the else statement
+            if (main.wordleGame()) {
+                JOptionPane.showMessageDialog(null,
+                        "Congratulations! \nYou guessed the word!\nThe word is " + main.answer, "End", -1, null);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "You did not guess the word. \nThe word is " + main.answer + ".", "End", -1, null);
+            }
+
+            // yes = 0
+            // no = 1
+            continueGame = JOptionPane.showConfirmDialog(null, "Do you want to play again?", null,
+                    JOptionPane.YES_NO_OPTION, -1, null);
+        }
     }
 }

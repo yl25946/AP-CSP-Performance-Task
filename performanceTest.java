@@ -13,7 +13,7 @@ public class performanceTest {
 
         test.scanFile("words");
 
-        test.test(100000);
+        test.test(1000000);
     }
 
     public void test(int times) throws Exception {
@@ -27,7 +27,7 @@ public class performanceTest {
             binarySearchTime += System.nanoTime() - startTime;
 
             startTime = System.nanoTime();
-            words.indexOf(words.get(randomIndex));
+            wordsHashSet.contains(words.get(randomIndex));
             hashSetTime += System.nanoTime() - startTime;
         }
 
