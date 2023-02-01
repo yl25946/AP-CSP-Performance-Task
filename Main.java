@@ -66,7 +66,7 @@ public class Main {
             while (input != null) {
                 // adds the word to the list
                 words.add(input);
-                // adds the word to the hashset
+                // adds the word to the HashSet
                 wordsHashSet.add(input);
                 // reads the next line and writes it to input
                 input = bufferedReader.readLine();
@@ -165,8 +165,7 @@ public class Main {
         // the for(;;) makes an infinite loop until broken
         // doing this because I'm too lazy to make a boolean to check
         for (;;) {
-            // if the guess is empty or not in list, indicate to the user that it is not a
-            // valid guess
+            // if the guess is empty or not in the HashSet
             if (input.isEmpty() || !wordsHashSet.contains(input.toLowerCase())) {
                 JOptionPane.showMessageDialog(null, "Please enter a 5 letter word",
                         "Invalid Guess", -1, null);
