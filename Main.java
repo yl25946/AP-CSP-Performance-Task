@@ -1,6 +1,6 @@
 /*
  * Wordle Game
- * Version 1.2.4
+ * Version 1.3.4
  */
 
 import java.io.BufferedReader;
