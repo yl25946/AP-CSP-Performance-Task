@@ -1,6 +1,6 @@
 /*
  * Wordle Game
- * Version 1.1.3
+ * Version 1.2.4
  */
 
 import java.io.BufferedReader;
@@ -127,29 +127,32 @@ public class Main {
      * > 0 if the first string is alphabetically later
      */
 
-    public int binarySearch(ArrayList<String> input, String search, int lowerBound, int upperBound) {
-        int mid = (int) ((lowerBound + upperBound) / 2);
-
-        if (input.get(mid).equals(search)) {
-            return mid;
-        }
-
-        if (lowerBound == upperBound - 1) {
-            if (input.get(mid).equals(search)) {
-                return lowerBound;
-            } else if (input.get(upperBound).equals(search)) {
-                return upperBound;
-            } else
-                return -1;
-        }
-
-        // if the search is alphabetically before the mid of the list
-        if (input.get(mid).compareTo(search) > 0)
-            return binarySearch(input, search, lowerBound, mid);
-        else
-            return binarySearch(input, search, mid, upperBound);
-
-    }
+    /*
+     * public int binarySearch(ArrayList<String> input, String search, int
+     * lowerBound, int upperBound) {
+     * int mid = (int) ((lowerBound + upperBound) / 2);
+     * 
+     * if (input.get(mid).equals(search)) {
+     * return mid;
+     * }
+     * 
+     * if (lowerBound == upperBound - 1) {
+     * if (input.get(mid).equals(search)) {
+     * return lowerBound;
+     * } else if (input.get(upperBound).equals(search)) {
+     * return upperBound;
+     * } else
+     * return -1;
+     * }
+     * 
+     * // if the search is alphabetically before the mid of the list
+     * if (input.get(mid).compareTo(search) > 0)
+     * return binarySearch(input, search, lowerBound, mid);
+     * else
+     * return binarySearch(input, search, mid, upperBound);
+     * 
+     * }
+     */
 
     public String getGuess(String message, String title) {
         String input;
