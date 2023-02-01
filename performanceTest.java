@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class performanceTest {
 
     public ArrayList<String> words = new ArrayList<String>();
+    public HashSet<String> wordsHashSet = new HashSet<String>();
 
     public static void main(String[] args) throws Exception {
         performanceTest test = new performanceTest();
@@ -15,7 +17,7 @@ public class performanceTest {
     }
 
     public void test(int times) throws Exception {
-        long indexOfTime = 0, binarySearchTime = 0;
+        long hashSetTime = 0, binarySearchTime = 0;
 
         for (int i = 0; i < times; i++) {
             int randomIndex = randomInt(0, words.size() - 1);
@@ -26,11 +28,11 @@ public class performanceTest {
 
             startTime = System.nanoTime();
             words.indexOf(words.get(randomIndex));
-            indexOfTime += System.nanoTime() - startTime;
+            hashSetTime += System.nanoTime() - startTime;
         }
 
+        System.out.println("Average time for Hashset is: " + (hashSetTime / times));
         System.out.println("Average time for binarySearch is: " + (binarySearchTime / times));
-        System.out.println("Average time for indexOf is: " + (indexOfTime / times));
     }
 
     // returns a random int including the lowerBound and upperbound
@@ -69,7 +71,6 @@ public class performanceTest {
 
     }
 
-    // input a file name and it will scan the file into an ArrayList
     public void scanFile(String file) throws Exception {
         // added here so we don't have to readLine twice
         try {
@@ -83,6 +84,7 @@ public class performanceTest {
             while (input != null) {
                 // adds the word to the list
                 words.add(input);
+                wordsHashSet.add(input);
                 // reads the next line and writes it to input
                 input = bufferedReader.readLine().toLowerCase();
             }
