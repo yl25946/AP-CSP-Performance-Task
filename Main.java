@@ -1,6 +1,6 @@
 /*
  * Wordle Game
- * Version 1.3.4
+ * Version 1.3.5
  */
 
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ public class Main {
 
     public ArrayList<String> words = new ArrayList<String>();
     public HashSet<String> wordsHashSet = new HashSet<String>();
-    public String answer;
+    private String answer;
 
     // return true if you win, returns false if you lose
     public boolean wordleGame() {
@@ -80,7 +80,7 @@ public class Main {
         }
     }
 
-    public String checkGuess(String guess) {
+    private String checkGuess(String guess) {
         // answer in char array
         char[] answerCA = answer.toCharArray();
         // guess in char array
