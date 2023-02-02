@@ -13,7 +13,7 @@ public class performanceTest {
 
         test.scanFile("words");
 
-        test.test(1000000);
+        test.test(10000000);
     }
 
     public void test(int times) throws Exception {
