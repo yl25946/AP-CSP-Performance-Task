@@ -193,6 +193,9 @@ public class Main {
         int continueGame = 0;
 
         // scans every guess into words
+        // the words file is sorted file
+        // the unsorted file is found here: 
+        // https://github.com/tabatkins/wordle-list/blob/main/words
         main.scanFile("words");
 
         while (continueGame == 0) {
