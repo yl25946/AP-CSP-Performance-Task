@@ -27,6 +27,7 @@ public class Main {
         String input, result, allGuesses = "";
 
         answer = words.get(randomInt(0, words.size())).toString();
+        // this is for testing and creating a video
         System.out.println(answer);
 
         input = getGuess("Guess #1", "Wordle");
@@ -44,7 +45,7 @@ public class Main {
             else {
                 result = checkGuess(input);
                 allGuesses += "\n" + input + ": " + result;
-                ;
+
             }
 
         }
@@ -194,7 +195,7 @@ public class Main {
 
         // scans every guess into words
         // the words file is sorted file
-        // the unsorted file is found here: 
+        // the unsorted file is found here:
         // https://github.com/tabatkins/wordle-list/blob/main/words
         main.scanFile("words");
 
