@@ -1,5 +1,5 @@
 /*
- * Wordle Game
+ * Wordle-inspired Game
  * Version 1.3.5
  */
 
@@ -167,7 +167,7 @@ public class Main {
         // doing this because I'm too lazy to make a boolean to check
         for (;;) {
             // if the guess is empty or not in the HashSet
-            if (input.isEmpty() || !wordsHashSet.contains(input.toLowerCase())) {
+            if (input == null || input.isEmpty() || !wordsHashSet.contains(input.toLowerCase())) {
                 JOptionPane.showMessageDialog(null, "Please enter a 5 letter word",
                         "Invalid Guess", -1, null);
                 input = (String) JOptionPane.showInputDialog(null, message, title,
@@ -201,7 +201,7 @@ public class Main {
 
         while (continueGame == 0) {
             JOptionPane.showMessageDialog(null,
-                    "Welcome to Wordle! \nThis game will test your vocabulary! \nEach word is 5 letters long. \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word.",
+                    "Welcome to my game! \nThis game will test your vocabulary! \nEach word is 5 letters long. \nG is used to indicate that the letter in the guess is in the correct place. \nY is used to indicate that the letter in the guess is in the word, but not in the right place. \n* is used to indicate that the letter in the guess is not in the word.",
                     "Tutorial", -1, null);
 
             // it will enter the if statement if you win
