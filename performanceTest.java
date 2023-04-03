@@ -2,8 +2,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.util.Arrays;
 
 public class performanceTest {
+
+    public final String answer = "forte";
 
     public ArrayList<String> words = new ArrayList<String>();
     public HashSet<String> wordsHashSet = new HashSet<String>();
@@ -13,7 +16,49 @@ public class performanceTest {
 
         test.scanFile("words");
 
-        test.test(10000000);
+        test.test(1000000);
+
+        System.out.println(test.checkGuess("forts"));
+    }
+
+    private String checkGuess(String guess) {
+        // answer in char array
+        char[] answerCA = answer.toCharArray();
+        // guess in char array
+        char[] guessCA = guess.toCharArray();
+        // output char array
+        char[] result = new char[5];
+        // fills array with "*"
+        // I don't have to go later in the program to add it
+        Arrays.fill(result, '*');
+
+        // loops through the arrays and checks if the chars are at the same spot
+        // if at the same spot, set "G" at the same index
+        for (int i = 0; i < result.length; i++) {
+            if (answerCA[i] == guessCA[i]) {
+                result[i] = 'G';
+                answerCA[i] = ' ';
+                guessCA[i] = ' ';
+            }
+        }
+
+        // checks for "Y" by comparing all the possible char indexes for both arrays
+        // against each other
+        for (int i = 0; i < result.length; i++) {
+            if (guessCA[i] == ' ')
+                continue;
+            for (int j = 0; j < result.length; j++) {
+                if (answerCA[j] == ' ')
+                    continue;
+                else if (guessCA[i] == answerCA[j]) {
+                    result[i] = 'Y';
+                    answerCA[j] = ' ';
+                    break;
+                }
+            }
+        }
+
+        return String.valueOf(result);
     }
 
     public void test(int times) throws Exception {
